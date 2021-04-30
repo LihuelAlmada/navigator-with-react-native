@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -25,10 +25,15 @@ HomeScreen.navigationOptions = {
   },
 }
 const DestalleScreen = ({ navigation }) => {
-  const lala = navigation.getParam('lala', 'valor por defecto')
+  const [cont, setCont] = useState(0)
+  const incrementar = () => setCont(cont + 1)
+
+  useEffect(() => {
+    navigation.setParams({ incrementar })
+  }, [cont])
   return (
     <View style={styles.container}>
-      <Text>Pantalla detalle {lala}</Text>
+      <Text>Pantalla detalle {cont}</Text>
       <Button 
         title="Login"
         onPress={() => navigation.setParams({ title: 'Usuario 1' })}
