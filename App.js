@@ -19,7 +19,7 @@ const HomeScreen = ({ navigation }) => {
   );
 }
 HomeScreen.navigationOptions = {
-  headerTitle: <Logo />,
+  headerTitle: () => <Logo />,
   headerStyle: {
     backgroundColor: '#222',
   },
@@ -38,9 +38,15 @@ const DestalleScreen = ({ navigation }) => {
   );
 }
 
-DestalleScreen.navigationOptions = ({ navigation }) => {
+DestalleScreen.navigationOptions = ({ navigation, navigationOptions}) => {
   return {
     title: navigation.getParam('title', 'Cargando...'),
+    headerRight: () =>
+    <Button 
+      onPress={navigation.getParam('incrementar')}
+      title="Mas 1"
+      color='#fff'
+    />
   }
 }
 const AppNavigator = createStackNavigator({
