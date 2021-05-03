@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
+import { createButtonTabNavigator } from 'react-navigation-tabs';
+
 
 const Logo = () => <Text>Lalala</Text>
 
@@ -36,7 +38,7 @@ const DestalleScreen = ({ navigation }) => {
       <Text>Pantalla detalle {cont}</Text>
       <Button 
         title="Login"
-        onPress={() => navigation.setParams({ title: 'Usuario 1' })}
+        onPress={() => navigation.navigate("MiModal")}
       />
       <StatusBar style="auto" />
     </View>
@@ -54,7 +56,7 @@ DestalleScreen.navigationOptions = ({ navigation, navigationOptions}) => {
     />
   }
 }
-const AppNavigator = createStackNavigator({
+const AppNavigator = createButtonTabNavigator({
   Home: {
     screen: HomeScreen
   },
@@ -73,8 +75,17 @@ const AppNavigator = createStackNavigator({
       }
     }
 })
+const RootStack = createStackNavigator({
+  Main: AppNavigator,
+  MiModal: () => <Text>Lalala</Text>
+}, {
+  mode: 'modal',
+  headerMode: 'none',
+})
 
-export default createAppContainer(AppNavigator)
+export default createAppContainer(RootStack)
+
+//export default createAppContainer(AppNavigator)
 const styles = StyleSheet.create({
   container: {
     flex: 1,
